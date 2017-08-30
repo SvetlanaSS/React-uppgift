@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
+import Input from './Input';
 
 
 class Content extends Component {
-  state = {text:""}
-
-  HandleText(event) {
-    let Value = event.taget.value;
-    this.setState({text:Value});
+  state = {
+      text:[]
   }
 
-  render() {
-    return (
-      <Input text={this.state.text} HandleText={this.HandleText}/>
-    )
+  handleInput = (event) => {
+      if(event.key == 'Enter'){
+          let newInput = this.state.text.slice();
+          newInput.push(event.target.value);
+          this.setState({
+            text: newInput
+          })
+      }
+  }
+
+  render(){
+      return(
+        <Input onKeyPress={this.handleInput} text={this.state.text} />
+      );
   }
 }
 
